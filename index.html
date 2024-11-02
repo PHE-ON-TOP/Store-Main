@@ -329,29 +329,32 @@
         });
 
         dialogBuy.onclick = () => {
-            const product = Array.from(products).find(prod => prod.getAttribute("data-name") === dialogTitle.textContent);
-            if (!product) return;
+    const product = Array.from(products).find(prod => prod.getAttribute("data-name") === dialogTitle.textContent);
+    if (!product) return;
 
-            const price = parseInt(product.getAttribute("data-price"));
-            let store = parseInt(product.getAttribute("data-store"));
+    const price = parseInt(product.getAttribute("data-price"));
+    let store = parseInt(product.getAttribute("data-store"));
 
-            if (store > 0 && balance >= price) {
-                balance -= price;
-                store -= 1;
+    if (store > 0 && balance >= price) {
+        balance -= price;
 
-                localStorage.setItem("balance", balance);
-                product.setAttribute("data-store", store);
-                localStorage.setItem(product.getAttribute("data-name"), store);
-
-                updateUserInfo();
-                product.querySelector(".stock").textContent = store;
-
-                alert(`ซื้อ ${dialogTitle.textContent} เสร็จเรียบร้อย`);
-            } else {
-                alert("เงินไม่พอ หรือ สินค้าหมด");
+        products.forEach(prod => {
+            let currentStore = parseInt(prod.getAttribute("data-store"));
+            if (currentStore > 0) {
+                currentStore -= 1;
+                prod.setAttribute("data-store", currentStore);
+                prod.querySelector(".stock").textContent = currentStore;
             }
-        };
+        });
 
+        localStorage.setItem("balance", balance);
+        updateUserInfo();
+
+        alert(`ซื้อ ${dialogTitle.textContent} เสร็จเรียบร้อย`);
+    } else {
+        alert("เงินไม่พอ หรือ สินค้าหมด");
+    }
+};
         function loadStockData() {
             products.forEach(product => {
                 const name = product.getAttribute("data-name");
