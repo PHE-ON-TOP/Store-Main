@@ -116,7 +116,7 @@
 
         #dialogImage {
             width: 100%;
-            max-width: 200px;
+            max-width: 225px;
             border-radius: 8px;
             margin-bottom: 15px;
         }
@@ -157,10 +157,10 @@
             data-price="1 / 4 ฿"
             data-stock="100"
             data-weight="Normal"
-            data-image="https://raw.githubusercontent.com/PHE-ON-TOP/Pictures/refs/heads/main/Dog.webp"
+            data-image="https://github.com/PHE-ON-TOP/Pictures/blob/main/Relic.png?raw=true"
             data-rod="------"
             data-cash="------">
-            <img src="https://raw.githubusercontent.com/PHE-ON-TOP/Pictures/refs/heads/main/Dog.webp" alt="Product Image" style="display: block; margin: 0 auto; width:100%; max-width:175px; margin-top: 10px; border-radius: 10px;">
+            <img src="https://github.com/PHE-ON-TOP/Pictures/blob/main/Relic.png?raw=true" alt="Product Image" style="display: block; margin: 0 auto; width:100%; max-width:175px; margin-top: 10px; border-radius: 10px;">
             <p>Relic</p>
             <p>Normal</p>
             <p>Stock : 100</p>
@@ -171,10 +171,10 @@
             data-price="1 / 125 ฿"
             data-stock="2"
             data-weight="Level : 30+"
-            data-image="https://raw.githubusercontent.com/PHE-ON-TOP/Pictures/refs/heads/main/Dog.webp"
+            data-image="https://github.com/PHE-ON-TOP/Pictures/blob/main/Cash%20Level.png?raw=true"
             data-rod="Rods : Trident Rod, Kings Rod"
             data-cash="C$ : 1.5 M+">
-            <img src="https://raw.githubusercontent.com/PHE-ON-TOP/Pictures/refs/heads/main/Dog.webp" alt="Product Image" style="display: block; margin: 0 auto; width:100%; max-width:175px; margin-top: 10px; border-radius: 10px;">
+            <img src="https://github.com/PHE-ON-TOP/Pictures/blob/main/Cash%20Level.png?raw=true" alt="Product Image" style="display: block; margin: 0 auto; width:100%; max-width:175px; margin-top: 10px; border-radius: 10px;">
             <p>Account</p>
             <p>Level : 30+</p>
             <p>Stock : 2</p>
@@ -187,12 +187,12 @@
             <span class="close-button">&times;</span>
             <img id="dialogImage" src="" alt="Product Image">
             <h2 id="dialogTitle">Product Name</h2>
-            <p id="dialogWeight">Weight : </p>
-            <p id="dialogCash">C$ : </p>
-            <p id="dialogRod">Rod : </p>
-            <p id="dialogStock">Stock : </p>
-            <p id="dialogPrice">Price : </p>
-            <p id="dialogBuy" style="cursor: pointer;">คลิกข้อความนี้เพื่อสั่งซื้อ</p>
+            <h4 id="dialogWeight">Weight : </h4>
+            <h4 id="dialogCash">C$ : </h4>
+            <h4 id="dialogRod">Rod : </h4>
+            <h2 id="dialogStock">Stock : </h2>
+            <h2 id="dialogPrice">Price : </h2>
+            <h2 id="dialogBuy" style="cursor: pointer;">คลิกข้อความนี้เพื่อสั่งซื้อ</h2>
         </div>
     </div>
 
@@ -212,7 +212,7 @@
                 e.preventDefault();
             }
         });
-        
+
         document.querySelectorAll('.category-menu a').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
