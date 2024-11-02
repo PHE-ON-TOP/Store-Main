@@ -55,7 +55,7 @@
         }
 
         .product {
-            border: 1px solid #ddd;;
+            border: 1px solid #ddd;
             padding: 10px;
             text-align: center;
             transition: transform 0.2s;
@@ -122,23 +122,22 @@
         }
 
         @media (max-width: 600px) {
-        .product-gallery {
-            display: flex;
-            grid-template-columns: repeat(1, 0.2fr);
-            flex-direction: column;
-            align-items: center;
-            margin: 10px;
-        }
+            .product-gallery {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 10px;
+            }
 
-        .product {
-            width: 80%;
-            max-width: 300px;
-            margin-bottom: 20px;
-        }
+            .product {
+                width: 80%;
+                max-width: 300px;
+                margin-bottom: 20px;
+            }
 
-        .product img {
-            max-width: 100%;
-            height: auto;
+            .product img {
+                max-width: 100%;
+                height: auto;
             }
         }
     </style>
@@ -198,7 +197,7 @@
     </div>
 
     <script>
-                document.addEventListener('contextmenu', function(e) {
+        document.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
 
@@ -213,6 +212,7 @@
                 e.preventDefault();
             }
         });
+        
         document.querySelectorAll('.category-menu a').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -230,6 +230,7 @@
                 });
             });
         });
+
         document.querySelectorAll('.product').forEach(product => {
             product.addEventListener('click', function() {
                 const name = this.getAttribute('data-name');
@@ -249,14 +250,17 @@
                 document.getElementById('productDialog').style.display = 'flex';
             });
         });
+
         document.querySelector('#productDialog .close-button').addEventListener('click', function() {
             document.getElementById('productDialog').style.display = 'none';
         });
+
         document.getElementById('productDialog').addEventListener('click', function(event) {
             if (event.target === this) {
                 document.getElementById('productDialog').style.display = 'none';
             }
         });
+
         document.getElementById('dialogBuy').addEventListener('click', function() {
             window.open('https://www.facebook.com/Phoomphat.phe', '_blank');
         });
