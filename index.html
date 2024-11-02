@@ -110,12 +110,22 @@
         }
 
         @media (max-width: 600px) {
-            .product-gallery {
-                display: flex;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 0.5fr));
-                flex-direction: column;
-                align-items: center;
-                margin: 10px;
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px;
+        }
+
+        .product {
+            width: 80%;
+            max-width: 300px;
+            margin-bottom: 20px;
+        }
+
+        .product img {
+            max-width: 100%;
+            height: auto;
             }
         }
     </style>
