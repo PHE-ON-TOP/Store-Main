@@ -112,10 +112,10 @@
         @media (max-width: 600px) {
             .product-gallery {
                 display: flex;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 0.5fr));
                 flex-direction: column;
                 align-items: center;
                 margin: 10px;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 0.35fr));
             }
         }
     </style>
