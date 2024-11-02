@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHE Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav {
+            background-color: #f8f8f8;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .category-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-grow: 1;
+            margin-left: 225px;
+        }
+
+        .category-menu li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        .category-menu li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .auth-buttons {
+            margin-left: auto;
+            padding: 0 20px;
+        }
+
+        .auth-buttons button {
+            margin-left: 10px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        #loginBtn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #registerBtn {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        #rechargeBtn {
+            background-color: #FF9800;
+            color: white;
+        }
+
+        .auth-buttons button:hover {
+            transform: scale(1.05);
+        }
+
+        .product-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 0.2fr));
+            gap: 20px;
+            padding: 10px;
+            margin: 50px;
+        }
+
+        .product {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+
+        .product p {
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .product span {
+            color: #f00;
+            font-size: 1.2em;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 300px;
+            width: 90%;
+            position: relative;
+        }
+
+        .modal h2 {
+            margin-bottom: 15px;
+        }
+
+        .modal input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .modal button:hover {
+            background-color: #45a049;
+        }
+
+        .close-button {
+            cursor: pointer;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        #productDialog {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        #productDialog .dialog-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 300px;
+            width: 90%;
+            position: relative;
+        }
+
+        #dialogImage {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="user-info">
+            <span id="usernameDisplay">Guest</span>
+            <span id="balanceDisplay"> : 0 ฿</span>
+        </div>
+        <div class="auth-buttons">
+            <button id="loginBtn">Login</button>
+            <button id="registerBtn">Register</button>
+            <button id="rechargeBtn">Recharge</button>
+        </div>
+    </nav>
+    
+
+    <section class="product-gallery">
+        <div class="product" data-name="หมูตอน" data-price="10" data-store="5" data-weight="3000 - 4000kg" data-image="https://raw.githubusercontent.com/PHE-ON-TOP/Pictures/refs/heads/main/Dog.webp">
+            <img src="https://raw.githubusercontent.com/PHE-ON-TOP/Pictures/refs/heads/main/Dog.webp" alt="Product Image" style="display: block; margin: 0 auto; width:100%; max-width:175px; margin-top: 10px; border-radius: 10px;">
+            <h2>หมูตอน</h2>
+            <p>Weight : 3000 - 4000kg</p>
+            <p>Stock : <span class="stock" data-stock="5">5</span></p>
+            <span>10 ฿</span>
+        </div>
+    </section>
+
+    <div id="productDialog">
+        <div class="dialog-content">
+            <span class="close-button">&times;</span>
+            <img id="dialogImage" src="" alt="Product Image">
+            <h2 id="dialogTitle">Product Name</h2>
+            <p id="dialogWeight">Weight : </p>
+            <p id="dialogStore">Stock : </p>
+            <p id="dialogPrice">Price : </p>
+            <p id="dialogBuy" style="cursor: pointer;">คลิกข้อความนี้เพื่อสั่งซื้อ</p>
+        </div>
+    </div>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Login</h2>
+            <input type="text" id="loginUsername" placeholder="Username" required>
+            <input type="password" id="loginPassword" placeholder="Password" required>
+            <button id="submitLogin">Login</button>
+        </div>
+    </div>
+
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Register</h2>
+            <input type="text" id="registerUsername" placeholder="Username" required>
+            <input type="password" id="registerPassword" placeholder="Password" required>
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+            <button id="submitRegister">Register</button>
+        </div>
+    </div>
+
+    <div id="rechargeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Recharge</h2>
+            <input type="number" id="rechargeAmount" placeholder="Amount" required>
+            <button id="submitRecharge">Recharge</button>
+        </div>
+    </div>
+
+    <script>
+        let isLoggedIn = false;
+        let username = "";
+        let balance = 0;
+        const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || {};
+
+        function updateUserInfo() {
+            document.getElementById('usernameDisplay').textContent = isLoggedIn ? username : "Guest";
+            document.getElementById('balanceDisplay').textContent = ` : ${balance} ฿`;
+        }
+
+        window.onload = () => {
+            const storedUser = localStorage.getItem("user");
+            const storedBalance = localStorage.getItem("balance");
+            if (storedUser) {
+                username = storedUser;
+                isLoggedIn = true;
+            }
+            if (storedBalance) {
+                balance = parseInt(storedBalance);
+            }
+            updateUserInfo();
+            loadStockData();
+        };
+
+        const productDialog = document.getElementById("productDialog");
+        const dialogImage = document.getElementById("dialogImage");
+        const dialogTitle = document.getElementById("dialogTitle");
+        const dialogWeight = document.getElementById("dialogWeight");
+        const dialogStore = document.getElementById("dialogStore");
+        const dialogPrice = document.getElementById("dialogPrice");
+        const dialogBuy = document.getElementById("dialogBuy");
+
+        const products = document.querySelectorAll('.product');
+        products.forEach(product => {
+            product.onclick = () => {
+                const name = product.getAttribute("data-name");
+                const price = parseInt(product.getAttribute("data-price"));
+                const store = parseInt(product.getAttribute("data-store"));
+                const weight = product.getAttribute("data-weight");
+                const image = product.getAttribute("data-image");
+
+                dialogImage.src = image;
+                dialogTitle.textContent = name;
+                dialogWeight.textContent = `Weight : ${weight}`;
+                dialogStore.textContent = `Stock : ${store}`;
+                dialogPrice.textContent = `Price : ${price} ฿`;
+
+                productDialog.style.display = "flex";
+            };
+        });
+
+        dialogBuy.onclick = () => {
+            const product = Array.from(products).find(prod => prod.getAttribute("data-name") === dialogTitle.textContent);
+            if (!product) return;
+
+            const price = parseInt(product.getAttribute("data-price"));
+            let store = parseInt(product.getAttribute("data-store"));
+
+            if (store > 0 && balance >= price) {
+                balance -= price;
+                store -= 1;
+
+                localStorage.setItem("balance", balance);
+                product.setAttribute("data-store", store);
+                localStorage.setItem(product.getAttribute("data-name"), store);
+
+                updateUserInfo();
+                product.querySelector(".stock").textContent = store;
+
+                alert(`ซื้อ ${dialogTitle.textContent} เสร็จเรียบร้อย`);
+            } else {
+                alert("เงินไม่พอ หรือ สินค้าหมด");
+            }
+        };
+
+        function loadStockData() {
+            products.forEach(product => {
+                const name = product.getAttribute("data-name");
+                const storedStock = localStorage.getItem(name);
+                if (storedStock !== null) {
+                    product.setAttribute("data-store", storedStock);
+                    product.querySelector(".stock").textContent = storedStock;
+                }
+            });
+        }
+
+        const loginModal = document.getElementById("loginModal");
+        const registerModal = document.getElementById("registerModal");
+        const rechargeModal = document.getElementById("rechargeModal");
+
+        document.getElementById("loginBtn").onclick = () => {
+            loginModal.style.display = "flex";
+        };
+
+        document.getElementById("registerBtn").onclick = () => {
+            registerModal.style.display = "flex";
+        };
+
+        document.getElementById("rechargeBtn").onclick = () => {
+            rechargeModal.style.display = "flex";
+        };
+
+        const closeButtons = document.querySelectorAll('.close-button');
+        closeButtons.forEach(button => {
+            button.onclick = () => {
+                button.closest('.modal').style.display = 'none';
+            };
+        });
+
+        document.getElementById("submitLogin").onclick = () => {
+            const usernameInput = document.getElementById("loginUsername").value;
+            const passwordInput = document.getElementById("loginPassword").value;
+
+            if (registeredUsers[usernameInput] && registeredUsers[usernameInput].password === passwordInput) {
+                username = usernameInput;
+                isLoggedIn = true;
+                balance = registeredUsers[usernameInput].balance || 0;
+                localStorage.setItem("user", username);
+                localStorage.setItem("balance", balance);
+                updateUserInfo();
+                loginModal.style.display = 'none';
+                alert("Login Successful");
+            } else {
+                alert("Invalid username or password");
+            }
+        };
+
+        document.getElementById("submitRegister").onclick = () => {
+            const usernameInput = document.getElementById("registerUsername").value;
+            const passwordInput = document.getElementById("registerPassword").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (passwordInput === confirmPassword) {
+                if (!registeredUsers[usernameInput]) {
+                    registeredUsers[usernameInput] = { password: passwordInput, balance: 0 };
+                    localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+                    alert("Registration Successful");
+                    registerModal.style.display = 'none';
+                } else {
+                    alert("Username already taken");
+                }
+            } else {
+                alert("Passwords do not match");
+            }
+        };
+
+        document.getElementById("submitRecharge").onclick = () => {
+            const amount = parseInt(document.getElementById("rechargeAmount").value);
+            if (amount > 0) {
+                balance += amount;
+                localStorage.setItem("balance", balance);
+                if (isLoggedIn) {
+                    registeredUsers[username].balance = balance;
+                    localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+                }
+                updateUserInfo();
+                rechargeModal.style.display = 'none';
+                alert("Recharge Successful");
+            } else {
+                alert("Please enter a valid amount");
+            }
+        };
+    </script>
+</body>
+</html>
