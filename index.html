@@ -159,7 +159,8 @@
             data-weight="Normal"
             data-image="https://github.com/PHE-ON-TOP/Pictures/blob/main/Relic.png?raw=true"
             data-rod="------"
-            data-cash="------">
+            data-cash="------"
+            data-mess="------">
             <img src="https://github.com/PHE-ON-TOP/Pictures/blob/main/Relic.png?raw=true" alt="Product Image" style="display: block; margin: 0 auto; width:100%; max-width:175px; margin-top: 10px; border-radius: 10px;">
             <p>Relic</p>
             <p>Normal</p>
@@ -173,7 +174,8 @@
             data-weight="Level : 30+"
             data-image="https://github.com/PHE-ON-TOP/Pictures/blob/main/Cash%20Level.png?raw=true"
             data-rod="Rods : Trident Rod, Kings Rod"
-            data-cash="C$ : 1.5 M+">
+            data-cash="C$ : 1.5 M+"
+            data-mess="สุ่ม Relic 1 - 100">
             <img src="https://github.com/PHE-ON-TOP/Pictures/blob/main/Cash%20Level.png?raw=true" alt="Product Image" style="display: block; margin: 0 auto; width:100%; max-width:175px; margin-top: 10px; border-radius: 10px;">
             <p>Account</p>
             <p>Level : 30+</p>
@@ -189,6 +191,7 @@
             <h2 id="dialogTitle">Product Name</h2>
             <h4 id="dialogWeight">Weight : </h4>
             <h4 id="dialogCash">C$ : </h4>
+            <h4 id="dialogMess">Mess : </h4>
             <h4 id="dialogRod">Rod : </h4>
             <h2 id="dialogStock">Stock : </h2>
             <h2 id="dialogPrice">Price : </h2>
@@ -239,13 +242,15 @@
                 const weight = this.getAttribute('data-weight');
                 const image = this.getAttribute('data-image');
                 const rod = this.getAttribute('data-rod');
-                const cash = this.getAttribute('data-cash')
+                const cash = this.getAttribute('data-cash');
+                const mess = this.getAttribute('data-mess');
                 document.getElementById('dialogTitle').textContent = name;
                 document.getElementById('dialogPrice').textContent = `${price}`;
                 document.getElementById('dialogStock').textContent = `Stock : ${stock}`;
                 document.getElementById('dialogWeight').textContent = `${weight}`;
                 document.getElementById('dialogRod').textContent = `${rod}`;
                 document.getElementById('dialogCash').textContent = `${cash}`;
+                document.getElementById('dialogMess').textContent = `${mess}`;
                 document.getElementById('dialogImage').src = image;
                 document.getElementById('productDialog').style.display = 'flex';
             });
