@@ -13,6 +13,7 @@
             background: linear-gradient(to bottom, #333333, #000000);
             background-attachment: fixed;
             color: white;
+            user-select: none;
         }
 
         nav {
@@ -31,6 +32,7 @@
             margin: 0;
             display: flex;
             justify-content: center;
+            margin-left: -17px;
         }
 
         .category-menu li {
@@ -267,6 +269,20 @@
     </div>
 
     <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "F12") {
+                event.preventDefault();
+            }
+
+            if (event.ctrlKey || event.metaKey) {
+                if (event.key === "u" || event.key === "i" || event.key === "c" || event.key === "C") {
+                    event.preventDefault();
+                }
+            }
+        });
+
         document.addEventListener("DOMContentLoaded", function () {
             const categoryLinks = document.querySelectorAll(".category-menu a");
             const products = document.querySelectorAll(".product");
