@@ -16,6 +16,10 @@
             user-select: none;
         }
 
+        .out-of-stock {
+            opacity: 0.35;
+        }
+
         nav {
             background: linear-gradient(to bottom, #000000, #33333300);
             padding: 10px;
@@ -206,10 +210,10 @@
             data-weight="Normal"
             data-image="https://github.com/PHE-ON-TOP/Pictures/blob/main/Relic.png?raw=true">
             <img src="https://github.com/PHE-ON-TOP/Pictures/blob/main/Relic.png?raw=true" alt="Product Image" style="display: block; margin: 0 auto; width:100%; max-width:175px; margin-top: 10px; border-radius: 10px;">
-            <span>Relic</span>
+            <span class="name">Relic</span>
             <p>Normal</p>
             <p>Stock : 0</p>
-            <span>1 / 3 ฿</span>
+            <span class="price">1 / 3 ฿</span>
         </div>
         <div class="product Account"
             data-name="Account"
@@ -221,10 +225,10 @@
             data-cash="C$ : 1.5 M+"
             data-mess="Relic : 20">
             <img src="https://github.com/PHE-ON-TOP/Pictures/blob/main/20.png?raw=true" alt="Product Image" style="display: block; margin: 0 auto; width:100%; max-width:175px; margin-top: 10px; border-radius: 10px;">
-            <span>Account</span>
+            <span class="name">Account</span>
             <p>Relic : 20</p>
             <p>Stock : 1</p>
-            <span>1 / 90 ฿</span>
+            <span class="price">1 / 90 ฿</span>
         </div>
         <div class="product Account"
             data-name="Account"
@@ -236,10 +240,10 @@
             data-cash="C$ : 1.5 M+"
             data-mess="Relic : 100">
             <img src="https://github.com/PHE-ON-TOP/Pictures/blob/main/100.png?raw=true" alt="Product Image" style="display: block; margin: 0 auto; width:100%; max-width:175px; margin-top: 10px; border-radius: 10px;">
-            <span>Account</span>
+            <span class="name">Account</span>
             <p>Relic : 100</p>
             <p>Stock : 2</p>
-            <span>1 / 325 ฿</span>
+            <span class="price">1 / 325 ฿</span>
         </div>
     </section>
 
@@ -315,6 +319,31 @@
                             product.style.display = "none";
                         }
                     });
+
+                    products.forEach(product => {
+                        const stock = parseInt(product.dataset.stock, 10);
+                        if (stock === 0) {
+                            product.classList.add("out-of-stock");
+                            } else {
+                            product.classList.remove("out-of-stock");
+                        }
+                    });
+
+                    products.forEach(product => {
+                        const stock = parseInt(product.dataset.stock, 10);
+                        if (stock === 0) {
+                            product.querySelector(".price").style.color = "#e74c3c";
+                            product.style.border = "1px solid #e74c3c";
+                        }
+                    });
+
+                    products.forEach(product => {
+                        const stock = parseInt(product.dataset.stock, 10);
+                        if (stock === 0) {
+                            product.querySelector(".name").style.color = "#e74c3c";
+                            product.style.border = "1px solid #e74c3c";
+                        }
+                    });
                 });
             });
 
@@ -339,6 +368,17 @@
                     document.getElementById("dialogRod").textContent = rod;
                     document.getElementById("dialogCash").textContent = cash;
                     document.getElementById("dialogMess").textContent = mess;
+
+                    if (parseInt(stock, 10) === 0) {
+                        document.getElementById("dialogTitle").style.color = "#e74c3c";
+                        document.getElementById("productDialog").querySelector('.dialog-content').style.border = "1px solid #e74c3c";
+                        document.getElementById("dialogBuy").style.display = "none";
+                    } else {
+                        document.getElementById("dialogTitle").style.color = "#179fc9";
+                        document.getElementById("dialogBuy").style.color = "#179fc9";
+                        document.getElementById("productDialog").querySelector('.dialog-content').style.border = "1px solid #179fc9";
+                        document.getElementById("dialogBuy").style.display = "block";
+                    }
 
                     document.getElementById("productDialog").style.display = "flex";
                 });
