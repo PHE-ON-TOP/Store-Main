@@ -1,199 +1,413 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PHE Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PHE Store</title>
     <style>
         html, body {
+            height: 100%;
             margin: 0;
             padding: 0;
-            height: 100%;
-            width: 100%;
-            background: linear-gradient(to bottom, #1a1a1a, #000000);
-            color: #179fc9;
             font-family: Arial, sans-serif;
-            font-size: 17px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            line-height: 1.6;
-            overflow: hidden;
+            background: linear-gradient(to bottom, #333333, #000000);
+            background-attachment: fixed;
+            color: white;
             user-select: none;
         }
 
-        .content {
-            background-color: rgba(255, 255, 255, 0.025);
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(23, 159, 201, 0.8);
-            max-width: 650px;
+        .out-of-stock {
+            opacity: 0.35;
+        }
+
+        nav {
+            background: linear-gradient(to bottom, #000000, #33333300);
+            padding: 10px;
+            text-align: center;
+            position: fixed;
+            top: 0;
             width: 100%;
-            box-sizing: border-box;
-            text-align: center;
+            z-index: 1000;
         }
 
-        .welcome {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            font-size: 35px;
+        .category-menu {
+            list-style: none;
+            padding: 0;
             margin: 0;
+            display: flex;
+            justify-content: center;
+            margin-left: -18px;
         }
 
-        p, ul {
-            font-size: 19px;
-            text-align: center;
-            margin: 0 auto;
-            padding: 0;
+        .category-menu li {
+            display: inline-block;
+            margin: 0 15px;
+            display: inline-block;
         }
 
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            margin: 10px 0;
-        }
-
-        a {
+        .category-menu li a {
+            text-decoration: none;
             color: white;
-            text-decoration: none;
-            transition: transform 0.3s ease, color 0.3s ease;
+            font-weight: bold;
+            padding: 8px 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            width: 70px;
+            display: inline-block;
+            text-align: center;
         }
 
-        a:hover {
+        .category-menu li a.active {
+            background-color: #179fc9;
+            color: white;
+        }
+
+        .category-menu li a:hover {
+            background-color: #333333;
+        }
+
+        .product-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 0.1955fr);
+            gap: 20px;
+            padding: 10px;
+            margin: 50px;
+        }
+
+        .product {
+            border: 1px solid #179fc9;
+            background: linear-gradient(to bottom, #333333, #000000);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            transition: transform 0.2s;
+            cursor: pointer;
+            color: white;
+            user-select: none;
+        }
+
+        .product:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1);
+        }
+
+        #dialogImage {
+            width: 100%;
+            max-width: 225px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            margin-left: 17px;
+        }
+
+        .product p {
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .product span {
             color: #179fc9;
-            text-decoration: none;
+            font-size: 1.5em;
         }
 
-        a:active {
-            color: #585858;
+        #dialogTitle {
+            color: #179fc9;
+            font-size: 1.5em;
+            font-weight: bold;
         }
 
-        .orange-link {
-            color: rgba(255, 255, 255, 0.8);
+        #productDialog, #orderConfirmationDialog {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
         }
 
-        .orange-link:hover {
-            color: rgb(23, 159, 201, 0.8);
+        #productDialog .dialog-content, #orderConfirmationDialog .dialog-content {
+            border: 1px solid #179fc9;
+            background: linear-gradient(to bottom, #000000, #333333, #000000);
+            border-radius: 8px;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 300px;
+            width: 90%;
+            color: white;
         }
 
-        .large-link {
-            font-size: 30px;
+        #productDialog .close-button, #orderConfirmationDialog .close-button {
+            cursor: pointer;
+            font-size: 1.9em;
+            font-weight: bold;
+            color: white;
+            float: right;
+            margin-top: -10px;
         }
 
-        .circle {
-            position: absolute;
-            border-radius: 50%;
-            background: transparent;
-            border: 8px solid rgba(23, 159, 201, 0.8);
-            transform: scale(0);
-            animation: expandFade 0.5s ease-out forwards;
-            pointer-events: none;
+        #confirmOrder, #cancelOrder {
+            background-color: #179fc9;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s;
         }
 
-        @keyframes expandFade {
-            to {
-                transform: scale(2);
-                opacity: 0;
-            }
+        #confirmOrder:hover {
+            background-color: #0f6f9e;
         }
 
-        @media screen and (max-width: 1080px) {
-            h1 {
-                font-size: 34px;
-            }
-
-            p, ul {
-                font-size: 18px;
-            }
-
-            li {
-                margin: 9px 0;
-            }
-
-            .content {
-                max-width: 90%;
-                max-width: 650px;
-                padding: 15px;
-            }
+        #cancelOrder {
+            background-color: #e74c3c;
         }
 
-        @media screen and (max-width: 600px) {
-            h1 {
-                font-size: 30px;
-            }
+        #cancelOrder:hover {
+            background-color: #c0392b;
+        }
 
-            p, ul {
-                font-size: 16px;
-            }
+        #dialogBuy {
+            cursor: pointer;
+            color: #179fc9;
+        }
 
-            li {
-                margin: 8px 0;
-            }
-
-            .content {
-                max-width: 95%;
-                max-width: 650px;
-                padding: 10px;
+        @media (max-width: 600px) {
+            .product-gallery {
+                display: flex;
+                grid-template-columns: repeat(1, 0.2fr);
                 flex-direction: column;
+                align-items: center;
+                margin: 10px;
+            }
+
+            .product {
+                width: 80%;
+                max-width: 300px;
+                margin-bottom: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="welcome">
-        <img src="https://github.com/Sylraz-X/Pictures/blob/main/PHE%20New%20LOGO.png?raw=true" alt="PHE" style="display: block; margin: 0 auto; width:100%; max-width:175px; margin-top: 10px;">
-        <h1>Welcome to PHE Website</h1>
+    <nav>
+        <ul class="category-menu">
+            <li><a href="#" data-category="All" class="active">All</a></li>
+            <li><a href="#" data-category="Relic">Relic</a></li>
+            <li><a href="#" data-category="Account">Account</a></li>
+        </ul>
+    </nav>
+
+    <section class="product-gallery">
+        <div class="product Relic"
+            data-name="Relic"
+            data-price="1 / 3 ฿"
+            data-stock="500"
+            data-weight="Normal"
+            data-image="https://github.com/PHE-ON-TOP/Pictures/blob/main/Relic.png?raw=true">
+            <img src="https://github.com/PHE-ON-TOP/Pictures/blob/main/Relic.png?raw=true" alt="Product Image" style="display: block; margin: 0 auto; width:100%; max-width:175px; margin-top: 10px; border-radius: 10px;">
+            <span class="name">Relic</span>
+            <p>Normal</p>
+            <p>Stock : 500</p>
+            <span class="price">1 / 3 ฿</span>
+        </div>
+        <div class="product Account"
+            data-name="Account"
+            data-price="1 / 90 ฿"
+            data-stock="1"
+            data-weight="Level : 30+"
+            data-image="https://github.com/PHE-ON-TOP/Pictures/blob/main/20.png?raw=true"
+            data-rod="Rods : Trident Rod, Kings Rod"
+            data-cash="C$ : 1.5 M+"
+            data-mess="Relic : 20">
+            <img src="https://github.com/PHE-ON-TOP/Pictures/blob/main/20.png?raw=true" alt="Product Image" style="display: block; margin: 0 auto; width:100%; max-width:175px; margin-top: 10px; border-radius: 10px;">
+            <span class="name">Account</span>
+            <p>Relic : 20</p>
+            <p>Stock : 1</p>
+            <span class="price">1 / 90 ฿</span>
+        </div>
+        <div class="product Account"
+            data-name="Account"
+            data-price="1 / 325 ฿"
+            data-stock="2"
+            data-weight="Level : 30+"
+            data-image="https://github.com/PHE-ON-TOP/Pictures/blob/main/100.png?raw=true"
+            data-rod="Rods : Trident Rod, Kings Rod"
+            data-cash="C$ : 1.5 M+"
+            data-mess="Relic : 100">
+            <img src="https://github.com/PHE-ON-TOP/Pictures/blob/main/100.png?raw=true" alt="Product Image" style="display: block; margin: 0 auto; width:100%; max-width:175px; margin-top: 10px; border-radius: 10px;">
+            <span class="name">Account</span>
+            <p>Relic : 100</p>
+            <p>Stock : 2</p>
+            <span class="price">1 / 325 ฿</span>
+        </div>
+    </section>
+
+    <footer style="
+        text-align: center;
+        padding: 2px;
+        background: linear-gradient(to bottom, #33333300, #000000);
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        z-index: 1000;
+    ">
+        <h3>การซื้อสินค้าทั้งหมด <span id="totalPurchases">14</span> รายการ</h3>
+    </footer>
+
+
+    <div id="productDialog">
+        <div class="dialog-content">
+            <span class="close-button">&times;</span>
+            <img id="dialogImage" src="" alt="Product Image">
+            <span id="dialogTitle">Product Name</span>
+            <h4 id="dialogWeight">Weight : </h4>
+            <h4 id="dialogCash">C$ : </h4>
+            <h4 id="dialogMess">Mess : </h4>
+            <h4 id="dialogRod">Rod : </h4>
+            <h2 id="dialogStock">Stock : </h2>
+            <h2 id="dialogPrice">Price : </h2>
+            <h3 id="dialogBuy">คลิกข้อความนี้เพื่อสั่งซื้อ</h3>
+        </div>
     </div>
-    <div class="content">
-        <h1>Roblox Username</h1>
-        <ul>
-            <li><a href="https://www.roblox.com/users/37404383/profile" onclick="fadeLink(this)" class="orange-link large-link">@butterking18</a></li>
-        </ul>
-        <h1>Live Countdown !</h1>
-        <ul>
-            <li><a href="https://live-count-phi.vercel.app/" onclick="fadeLink(this)" class="orange-link large-link">Countdown</a></li>
-        </ul>
-        <h1>Social Medias</h1>
-        <ul>
-            <li><a href="https://phe-website.vercel.app/" onclick="fadeLink(this)" class="orange-link large-link">Map / Social Medias / Staffs</a></li>
-        </ul>
+
+    <div id="orderConfirmationDialog">
+        <div class="dialog-content">
+            <span class="close-button">&times;</span>
+            <h2>เมื่อคุณกดยืนยันเราจะพาคุณไปยัง Facebook</h2>
+            <h3>คุณต้องการยืนยันการสั่งซื้อหรือไม่?</h3>
+            <button id="confirmOrder">ยืนยัน</button>
+            <button id="cancelOrder">ยกเลิก</button>
+        </div>
     </div>
 
     <script>
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
+        document.addEventListener('contextmenu', event => event.preventDefault());
 
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
-                e.preventDefault();
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "F12") {
+                event.preventDefault();
+            }
+
+            if (event.ctrlKey || event.metaKey) {
+                if (event.key === "u" || event.key === "i" || event.key === "c" || event.key === "C") {
+                    event.preventDefault();
+                }
             }
         });
 
-        document.addEventListener('mousedown', function(e) {
-            if (e.button === 0) {
-                e.preventDefault();
-            }
-        });
+        document.addEventListener("DOMContentLoaded", function () {
+            const categoryLinks = document.querySelectorAll(".category-menu a");
+            const products = document.querySelectorAll(".product");
 
-        document.addEventListener('click', (event) => {
-            const circle = document.createElement('div');
-            circle.className = 'circle';
-            document.body.appendChild(circle);
-            const size = Math.random() * 50 + 50;
-            circle.style.width = size + 'px';
-            circle.style.height = size + 'px';
-            circle.style.left = event.pageX - size / 2 + 'px';
-            circle.style.top = event.pageY - size / 2 + 'px';
-            setTimeout(() => {
-                circle.remove();
-            }, 500);
+            categoryLinks.forEach(link => {
+                link.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    const category = this.dataset.category;
+
+                    categoryLinks.forEach(link => link.classList.remove("active"));
+                    this.classList.add("active");
+
+                    products.forEach(product => {
+                        if (category === "All" || product.classList.contains(category)) {
+                            product.style.display = "block";
+                        } else {
+                            product.style.display = "none";
+                        }
+                    });
+
+                    products.forEach(product => {
+                        const stock = parseInt(product.dataset.stock, 10);
+                        if (stock === 0) {
+                            product.classList.add("out-of-stock");
+                            } else {
+                            product.classList.remove("out-of-stock");
+                        }
+                    });
+
+                    products.forEach(product => {
+                        const stock = parseInt(product.dataset.stock, 10);
+                        if (stock === 0) {
+                            product.querySelector(".price").style.color = "#e74c3c";
+                            product.style.border = "1px solid #e74c3c";
+                        }
+                    });
+
+                    products.forEach(product => {
+                        const stock = parseInt(product.dataset.stock, 10);
+                        if (stock === 0) {
+                            product.querySelector(".name").style.color = "#e74c3c";
+                            product.style.border = "1px solid #e74c3c";
+                        }
+                    });
+                });
+            });
+
+            categoryLinks[0].click();
+
+            products.forEach(product => {
+                product.addEventListener("click", function () {
+                    const name = this.dataset.name;
+                    const price = this.dataset.price;
+                    const stock = this.dataset.stock;
+                    const weight = this.dataset.weight;
+                    const image = this.dataset.image;
+                    const rod = this.dataset.rod || "";
+                    const cash = this.dataset.cash || "";
+                    const mess = this.dataset.mess || "";
+
+                    document.getElementById("dialogTitle").textContent = name;
+                    document.getElementById("dialogPrice").textContent = price;
+                    document.getElementById("dialogStock").textContent = "Stock : " + stock;
+                    document.getElementById("dialogWeight").textContent = weight;
+                    document.getElementById("dialogImage").src = image;
+                    document.getElementById("dialogRod").textContent = rod;
+                    document.getElementById("dialogCash").textContent = cash;
+                    document.getElementById("dialogMess").textContent = mess;
+
+                    if (parseInt(stock, 10) === 0) {
+                        document.getElementById("dialogTitle").style.color = "#e74c3c";
+                        document.getElementById("productDialog").querySelector('.dialog-content').style.border = "1px solid #e74c3c";
+                        document.getElementById("dialogBuy").style.display = "none";
+                    } else {
+                        document.getElementById("dialogTitle").style.color = "#179fc9";
+                        document.getElementById("dialogBuy").style.color = "#179fc9";
+                        document.getElementById("productDialog").querySelector('.dialog-content').style.border = "1px solid #179fc9";
+                        document.getElementById("dialogBuy").style.display = "block";
+                    }
+
+                    document.getElementById("productDialog").style.display = "flex";
+                });
+            });
+
+            document.querySelectorAll("#productDialog .close-button").forEach(button => {
+                button.addEventListener("click", function () {
+                    document.getElementById("productDialog").style.display = "none";
+                });
+            });
+
+            document.getElementById("dialogBuy").addEventListener("click", function () {
+                document.getElementById("productDialog").style.display = "none";
+                document.getElementById("orderConfirmationDialog").style.display = "flex";
+            });
+
+            document.querySelectorAll("#orderConfirmationDialog .close-button").forEach(button => {
+                button.addEventListener("click", function () {
+                    document.getElementById("orderConfirmationDialog").style.display = "none";
+                });
+            });
+
+            document.getElementById("confirmOrder").addEventListener("click", function () {
+                window.location.href = "https://www.facebook.com/Phoomphat.phe";
+            });
+
+            document.getElementById("cancelOrder").addEventListener("click", function () {
+                document.getElementById("orderConfirmationDialog").style.display = "none";
+            });
         });
     </script>
 </body>
