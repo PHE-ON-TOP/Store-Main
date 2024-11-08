@@ -18,6 +18,50 @@
             pointer-events: none;
         }
 
+        p, ul {
+            font-size: 25px;
+            color: white;
+            text-align: center;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        a:hover {
+            color: #179fc9;
+            text-decoration: none;
+        }
+
+        a:active {
+            color: #585858;
+        }
+
+        .orange-link {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .orange-link:hover {
+            color: rgb(23, 159, 201, 0.8);
+        }
+
+        .large-link {
+            font-size: 30px;
+        }
+
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -66,10 +110,14 @@
     <div class="container">
         <img src="https://github.com/Sylraz-X/Pictures/blob/main/PHE%20New%20LOGO.png?raw=true" alt="PHE" style="display: block; margin: 0 auto; width: 100%; max-width: 175px;">
         <div id="countdown"></div>
+        <ul>
+            <li><a href="https://discord.gg/Phoomphat" onclick="fadeLink(this)" class="orange-link large-link">Discord</a></li>
+        </ul>
+        <p>[ Community ]</p>
     </div>
 
     <script>
-        const targetDate = new Date('November 8, 2024 22:30:00').getTime();
+        const targetDate = new Date('November 8, 2024 23:30:00').getTime();
 
         const countdownInterval = setInterval(function() {
             const now = new Date().getTime();
