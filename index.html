@@ -11,16 +11,28 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(135deg, #202020, #179fc9);
-            background-size: 400% 400%;
-            animation: gradientBG 8s ease infinite;
+            margin: 0;
+            background: radial-gradient(circle, #179fc9 -125%, #000000 50%);
             user-select: none;
             pointer-events: none;
+            transition: background 5s ease-in-out;
+        }
+
+        @keyframes backgroundFade {
+            0% {
+                background: radial-gradient(circle, #179fc9 -125%, #000000 100%);
+            }
+            50% {
+                background: radial-gradient(circle, #179fc9 -125%, #000000 75%);
+            }
+            100% {
+                background: radial-gradient(circle, #179fc9 -125%, #000000 50%);
+            }
         }
 
         p, ul {
             font-size: 25px;
-            color: white;
+            color: #179fc9;
             text-align: center;
             margin: 0 auto;
             padding: 0;
@@ -36,7 +48,7 @@
         }
 
         a {
-            color: white;
+            color: #179fc9;
             text-decoration: none;
             transition: transform 0.3s ease, color 0.3s ease;
         }
@@ -60,12 +72,6 @@
 
         .large-link {
             font-size: 30px;
-        }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         .container {
@@ -109,15 +115,16 @@
 <body>
     <div class="container">
         <img src="https://github.com/Sylraz-X/Pictures/blob/main/PHE%20New%20LOGO.png?raw=true" alt="PHE" style="display: block; margin: 0 auto; width: 100%; max-width: 175px;">
+        <p>[ Free ]</p>
         <div id="countdown"></div>
         <ul>
-            <li><a href="https://discord.gg/Phoomphat" onclick="fadeLink(this)" class="orange-link large-link">Discord</a></li>
+            <li><a href="https://discord.gg/phoomphat" onclick="fadeLink(this)" class="orange-link large-link">Discord</a></li>
         </ul>
         <p>[ Community ]</p>
     </div>
 
     <script>
-        const targetDate = new Date('November 8, 2024 23:30:00').getTime();
+        const targetDate = new Date('November 9, 2024 00:30:00').getTime();
 
         const countdownInterval = setInterval(function() {
             const now = new Date().getTime();
