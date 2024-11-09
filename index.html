@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown !</title>
+    <title>PHE Store</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,7 +15,6 @@
             margin: 0;
             background: radial-gradient(circle, #179fc9 -125%, #000000 100%);
             user-select: none;
-            pointer-events: none;
             transition: background 5s ease-in-out;
         }
 
@@ -109,6 +108,71 @@
             gap: 20px;
             margin-top: 10px;
         }
+
+        .content {
+            background-color: rgba(255, 255, 255, 0.025);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(23, 159, 201, 0.8);
+            max-width: 650px;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            display: none;
+        }
+
+        .welcome {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 35px;
+            margin: 0;
+            color: #179fc9;
+        }
+
+        h2 {
+            font-size: 25px;
+            margin: 0;
+            color: #ffffff;
+        }
+
+        p, ul {
+            font-size: 19px;
+            text-align: center;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        .input-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        input[type="password"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #179fc9;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #179fc9;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #117a8b;
+        }
     </style>
 </head>
 <body>
@@ -132,7 +196,35 @@
         </div>
     </div>
 
+    <div class="content" id="store-content">
+        <h1>Roblox Username</h1>
+        <h2>หากเข้าลิ้งค์ไม่ได้ให้แอดชื่อด้านล่างนี้มานะครับ</h2>
+        <ul>
+            <li><a href="https://www.roblox.com/users/37404383/profile" class="orange-link large-link">@butterking18 [ คลิก ]</a></li>
+        </ul>
+
+        <div class="input-container">
+            <input type="password" id="password" placeholder="Enter password">
+            <button onclick="checkPassword()">Submit</button>
+        </div>
+    </div>
+
     <script>
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
+                e.preventDefault();
+            }
+        });
+
+        document.addEventListener('mousedown', function(e) {
+            if (e.button === 0) {
+                e.preventDefault();
+            }
+        });
         const targetDate = new Date('November 9, 2024 22:30:00').getTime();
 
         const countdownInterval = setInterval(function() {
@@ -151,26 +243,31 @@
                 clearInterval(countdownInterval);
                 document.getElementById("countdown").innerHTML = "Pls wait..";
                 setTimeout(function() {
-                    window.location.href = "https://main-store.vercel.app/";
+                    document.querySelector('.image-container').style.display = 'none';
+                    document.querySelector('.split-container').style.display = 'none';
+                    document.getElementById("store-content").style.display = "block";
                 }, 500);
             }
         }, 1000);
 
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-        });
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            const correctPassword = "ฝาก +1 ให้ผมด้วยนะครับทุกคน";
 
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && e.key === 'I')) {
-                e.preventDefault();
+            if (password === correctPassword) {
+                window.location.href = "https://www.roblox.com/share?code=f17f01cae2143d48bf8fa8d6e5984659&type=Server";
+            } else {
+                alert("Incorrect password. Please try again.");
             }
-        });
+        }
 
-        document.addEventListener('mousedown', function(e) {
-            if (e.button === 0) {
-                e.preventDefault();
-            }
-        });
+        function fadeLink(link) {
+            link.style.transition = "color 0.3s ease";
+            link.style.color = "#ffcc00";
+            setTimeout(function() {
+                link.style.color = "#179fc9";
+            }, 300);
+        }
 
         document.addEventListener('click', (event) => {
             const circle = document.createElement('div');
@@ -185,10 +282,6 @@
                 document.body.removeChild(circle);
             }, 500);
         });
-
-        function fadeLink(link) {
-            link.classList.add('clicked');
-        }
     </script>
 </body>
 </html>
