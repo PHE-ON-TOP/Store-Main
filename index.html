@@ -18,16 +18,20 @@
             transition: background 5s ease-in-out;
         }
 
-        @keyframes backgroundFade {
-            0% {
-                background: radial-gradient(circle, #179fc9 -125%, #000000 175%);
-            }
-            50% {
-                background: radial-gradient(circle, #179fc9 -125%, #000000 150%);
-            }
-            100% {
-                background: radial-gradient(circle, #179fc9 -125%, #000000 125%);
-            }
+        /* สไตล์การแบ่งสองฝั่ง */
+        .split-container {
+            display: flex;
+            gap: 20px;
+            width: 80%;
+            justify-content: center;
+            align-items: center;
+            pointer-events: auto;
+        }
+
+        /* กลับสไตล์เดิมของ container, p, ul, และอื่นๆ */
+        .container {
+            text-align: center;
+            pointer-events: auto;
         }
 
         p, ul {
@@ -74,11 +78,6 @@
             font-size: 30px;
         }
 
-        .container {
-            text-align: center;
-            pointer-events: auto;
-        }
-
         #countdown {
             font-size: 2rem;
             color: rgb(255, 255, 255);
@@ -113,15 +112,23 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="https://github.com/Sylraz-X/Pictures/blob/main/PHE%20New%20LOGO.png?raw=true" alt="PHE" style="display: block; margin: 0 auto; width: 100%; max-width: 175px;">
-        <p>[ 20:30 ]</p>
-        <div id="countdown"></div>
-        <ul>
+    <div class="split-container">
+        <div class="left">
+            <img src="https://github.com/PHE-ON-TOP/Pictures/blob/main/Aurora.png?raw=true" alt="PHE" style="display: block; margin: 20px auto; width: 100%; max-width: 175px; border-radius: 15px;">
+        </div>
+
+        <div class="container">
+            <img src="https://github.com/Sylraz-X/Pictures/blob/main/PHE%20New%20LOGO.png?raw=true" alt="PHE" style="display: block; margin: 0 auto; width: 100%; max-width: 175px;">
+            <p>[ 20:30 ]</p>
+            <div id="countdown"></div>
+            <p>[ Community ]</p>
+            <ul>
             <li><a href="https://discord.gg/phoomphat" onclick="fadeLink(this)" class="orange-link large-link">Discord</a></li>
-        </ul>
-        <p>[ Community ]</p>
-        <img src="https://github.com/PHE-ON-TOP/Pictures/blob/main/Aurora.png?raw=true" alt="PHE" style="display: block; margin: 20px auto; width: 100%; max-width: 175px; border-radius: 15px;">
+        </div>
+
+        <div class="right">
+            <img src="https://github.com/PHE-ON-TOP/Pictures/blob/main/Aurora.png?raw=true" alt="PHE" style="display: block; margin: 20px auto; width: 100%; max-width: 175px; border-radius: 15px;">
+        </div>
     </div>
 
     <script>
