@@ -36,7 +36,14 @@
             padding: 0;
         }
 
-        h2 {
+        h1 {
+            font-size: 35px;
+            margin: 0;
+            color: #179fc9;
+            text-align: center;
+        }
+
+        h3 {
             color: #179fc9;
             text-align: center;
             margin: 0 auto;
@@ -124,7 +131,7 @@
             <img src="https://github.com/Sylraz-X/Pictures/blob/main/PHE%20New%20LOGO.png?raw=true" alt="PHE" style="display: block; margin: 0 auto; width: 100%; max-width: 175px;">
             <p>[ 19:30 ]</p>
             <div id="countdown"></div>
-            <h2>[ Community ]</h2>
+            <h3>[ Community ]</h3>
             <ul>
                 <li><a href="https://discord.gg/phoomphat" onclick="fadeLink(this)" class="orange-link large-link">Discord</a></li>
             </ul>
@@ -133,12 +140,19 @@
     <div class="image-container">
         <div class="right">
             <img src="https://github.com/PHE-ON-TOP/Pictures/blob/main/Relic1.png?raw=true" alt="PHE" style="display: block; margin: 1px auto; width: 100%; max-width: 150px; border-radius: 15px;">
-            <h2>[ Relic ก้อนละ 1 บาท ]</h2>
+            <h3>[ Relic ก้อนละ 1 บาท ]</h3>
+        </div>
+    </div>
+    <div class="split-container">
+        <div class="container">
+            <ul>
+                <li><a href="https://store-info-rosy.vercel.app/" onclick="fadeLink(this)" class="orange-link large-link">[ คลิกที่นี่เพื่อดูข้อมูลเพิ่มเติม ]</a></li>
+            </ul>
         </div>
     </div>
 
     <script>
-        const targetDate = new Date('November 10, 2024 19:30:00').getTime();
+        const targetDate = new Date('November 11, 2024 19:30:00').getTime();
 
         const countdownInterval = setInterval(function() {
             const now = new Date().getTime();
