@@ -278,7 +278,7 @@
         <div class="container">
             <img src="https://github.com/Sylraz-X/Pictures/blob/main/PHE%20New%20LOGO.png?raw=true" alt="PHE" style="display: block; margin: 0 auto; width: 100%; max-width: 175px;">
             <p>[ Aurora Countdown ]</p>
-            <p><span class="red-text">[ 20:30 ]</span> [ 21:30 ]</p>
+            <p>[ 20:30 ] <span class="red-text">[ 21:30 ]</span></p>
             <div id="countdown"></div>
             <div class="input-container" id="passwordContainer">
                 <input type="password" id="password" placeholder="Enter password">
@@ -306,18 +306,21 @@
         <h1>[ Aurora ]</h1>
         <h2 id="set-yai">อาทิตย์</h2>
         <h2 id="set-yoi">จันทร์ - เสาร์</h2>
+        <h2 id="TureMoney">รับแค่ TureMoney เท่านั้น</h2>
     </div>
 
     <div class="content">
         <h1>[ Relic ]</h1>
         <h2 id="1-Relic">1 / 0.5 บาท</h2>
         <h2 id="25-Relic">25 / 12.5 บาท</h2>
+        <h2>Stock : 466</h2>
     </div>
 
     <div class="content">
         <h1>[ C$ ]</h1>
         <h2 id="50-Baht">100K / 50 บาท</h2>
         <h2 id="200-Baht">500K / 200 บาท</h2>
+        <h2>Stock : 1.8 M</h2>
     </div>
 
     <div class="dialog-box" id="dialog-box">
@@ -326,7 +329,18 @@
     </div>
 
     <script>
-        const targetDate = new Date('November 11, 2024 20:30:00').getTime();
+        const targetDate = new Date('November 11, 2024 21:30:00').getTime();
+
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            const correctPassword = "เครดิตน้อยแน่นอนว่าบิด";
+
+            if (password === correctPassword) {
+                window.location.href = "https://www.roblox.com/share?code=8dd184f783ea4848b79683544cffff9d&type=Server";
+            } else {
+                alert("Incorrect password. Please try again.");
+            }
+        }
 
         function openDialog(content) {
             const dialogBox = document.getElementById('dialog-box');
@@ -346,18 +360,6 @@
                 overlay.style.opacity = "0";
             }, 1);
         }
-
-        function checkPassword() {
-            const password = document.getElementById('password').value;
-            const correctPassword = "เครดิตน้อยแต่ได้ของร้อยเปอร์เซ็นต์";
-
-            if (password === correctPassword) {
-                window.location.href = "https://www.roblox.com/share?code=8dd184f783ea4848b79683544cffff9d&type=Server";
-            } else {
-                alert("Incorrect password. Please try again.");
-            }
-        }
-
 
         function toggleContent() {
             const contentItems = document.querySelectorAll('.content');
@@ -403,6 +405,10 @@
 
         document.getElementById('200-Baht').addEventListener('click', () => {
             openDialog('ราคา 200 บาท ได้ 500K C$\n# เงินในเกม');
+        });
+
+        document.getElementById('TureMoney').addEventListener('click', () => {
+            openDialog('เพราะธนาคารผมเจ๊ง');
         });
 
         function checkPassword() {
