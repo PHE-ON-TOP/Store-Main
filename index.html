@@ -428,17 +428,6 @@
             openDialog('เพราะธนาคารผมเจ๊ง');
         });
 
-        function checkPassword() {
-            const password = document.getElementById('password').value;
-            const correctPassword = "เครดิตน้อยแต่ได้ของร้อยเปอร์เซ็นต์";
-
-            if (password === correctPassword) {
-                window.location.href = "https://www.roblox.com/share?code=e431b73e1071614186324df4760614d0&type=Server";
-            } else {
-                alert("Incorrect password. Please try again.");
-            }
-        }
-
         const countdownInterval = setInterval(function() {
             const now = new Date().getTime();
             const distance = targetDate - now;
