@@ -294,9 +294,9 @@
     <div class="split-container">
         <div class="container">
             <img src="https://github.com/Sylraz-X/Pictures/blob/main/PHE%20New%20LOGO.png?raw=true" alt="PHE" style="display: block; margin: 0 auto; width: 100%; max-width: 175px;">
-            <p>[ Aurora Countdown ]</p>
-            <p><span class="red-text">[ 21:30 ]</span> [ 22:30 ]</p>
-            <div id="countdown"></div>
+            <p>[ Countdown ? ]</p>
+            <p><span class="red-text"></span> </p>
+            <p class="coming-soon-text">[ Coming soon ]</p>
             <div class="input-container" id="passwordContainer">
                 <input type="password" id="password" placeholder="Enter password">
                 <button onclick="checkPassword()">Submit</button>
@@ -330,14 +330,14 @@
             <h1>[ Relic ]</h1>
             <h2 id="1-Relic">1 / 0.5 บาท</h2>
             <h2 id="25-Relic">25 / 12.5 บาท</h2>
-            <h2>Stock : 466</h2>
+            <h2>Stock : 462</h2>
         </div>
 
         <div class="content">
             <h1>[ C$ ]</h1>
             <h2 id="50-Baht">100K / 50 บาท</h2>
-            <h2 id="200-Baht">500K / 200 บาท</h2>
-            <h2>Stock : 1.8 M</h2>
+            <h2 id="175-Baht">500K / 175 บาท</h2>
+            <h2>Stock : 0 M</h2>
         </div>
 
     <div class="dialog-box" id="dialog-box">
@@ -346,7 +346,7 @@
     </div>
 
     <script>
-        const targetDate = new Date('November 12, 2024 21:30:00').getTime();
+        const targetDate = new Date('November 13, 2024 21:30:00').getTime();
 
         function checkPassword() {
             const password = document.getElementById('password').value;
@@ -405,7 +405,7 @@
         });
 
         document.getElementById('set-yoi').addEventListener('click', () => {
-            openDialog('ราคา 5 บาท ต่อคน\nใช้ 1 ครั้ง ใน 1 เซิร์ฟ\n# 5 รอบต่อวัน');
+            openDialog('ราคา 5 บาท ต่อคน\nใช้ 2 ครั้ง ใน 1 เซิร์ฟ\n# 2 รอบต่อวัน');
         });
 
         document.getElementById('1-Relic').addEventListener('click', () => {
@@ -420,8 +420,8 @@
             openDialog('ราคา 50 บาท ได้ 100K C$\n# เงินในเกม');
         });
 
-        document.getElementById('200-Baht').addEventListener('click', () => {
-            openDialog('ราคา 200 บาท ได้ 500K C$\n# เงินในเกม');
+        document.getElementById('175-Baht').addEventListener('click', () => {
+            openDialog('ราคา 175 บาท ได้ 500K C$\n# เงินในเกม');
         });
 
         document.getElementById('TureMoney').addEventListener('click', () => {
